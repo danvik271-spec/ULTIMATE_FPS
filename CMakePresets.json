@@ -1,0 +1,38 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": { "major": 3, "minor": 24, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "linux-ninja",
+      "displayName": "Linux / Ninja / Debug",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/linux-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "ULTIMATE_BUILD_TESTS": "ON",
+        "ULTIMATE_BUILD_VULKAN": "ON",
+        "ULTIMATE_ENABLE_CURL": "ON"
+      }
+    },
+    {
+      "name": "windows-vs2022",
+      "displayName": "Windows / Visual Studio 2022 / x64",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/build/windows-vs2022",
+      "cacheVariables": {
+        "ULTIMATE_BUILD_TESTS": "ON",
+        "ULTIMATE_BUILD_VULKAN": "ON",
+        "ULTIMATE_ENABLE_CURL": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "linux-debug", "configurePreset": "linux-ninja" },
+    { "name": "windows-release", "configurePreset": "windows-vs2022", "configuration": "Release" }
+  ],
+  "testPresets": [
+    { "name": "linux-debug-tests", "configurePreset": "linux-ninja", "output": { "outputOnFailure": true } },
+    { "name": "windows-release-tests", "configurePreset": "windows-vs2022", "configuration": "Release", "output": { "outputOnFailure": true } }
+  ]
+}
